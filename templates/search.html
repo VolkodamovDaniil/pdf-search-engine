@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска - Поиск PDF</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .results { margin-top: 20px; }
+        .result-item { 
+            margin: 15px 0; 
+            padding: 15px; 
+            border: 1px solid #eee; 
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .search-highlight { 
+            background: yellow; 
+            font-weight: bold; 
+            padding: 2px 0;
+        }
+        .document-info { color: #666; font-size: 0.9em; margin-bottom: 5px; }
+        .btn { 
+            padding: 5px 10px; 
+            margin-right: 10px; 
+            text-decoration: none; 
+            border-radius: 3px; 
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+        .context { 
+            font-size: 0.95em; 
+            line-height: 1.4;
+            margin: 8px 0;
+        }
+        .page-badge {
+            background: #6c757d;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 8px;
+        }
+        .export-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .btn-export {
+            background: #28a745;
+            padding: 8px 15px;
+        }
+        .btn-export:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Результаты поиска</h1>
+    
+    <form action="/search" method="get">
+        <input type="text" name="q" value="{{ query }}" placeholder="Введите поисковый запрос..." required style="padding: 8px; width: 300px;">
+        <button type="submit" style="padding: 8px 15px; background: #17a2b8; color: white; border: none; border-radius: 3px;">Поиск</button>
+    </form>
+    
+    <div class="results">
+        {% if results %}
+            <div class="export-header">
+                <h3>Найдено {{ results|length }} результатов для "{{ query }}"</h3>
+                <a href="{{ url_for('export_global_report', q=query) }}" class="btn btn-export">
+                    📊 Экспорт отчёта
+                </a>
+            </div>
+            
+            {% for result in results %}
+            <div class="result-item">
+                <div class="document-info">
+                    <span class="page-badge">Стр. {{ result.chunk.page_number }}</span>
+                    <strong>{{ result.document.original_name }}</strong>
+                    {% if result.document.category %}
+                    <span style="color: #888; margin-left: 10px;">({{ result.document.category }})</span>
+                    {% endif %}
+                </div>
+                <div class="context">
+                    {{ result.context|safe }}
+                </div>
+                <a href="{{ url_for('view_document', doc_id=result.document.id, q=query) }}" class="btn">
+                    Открыть в просмотрщике
+                </a>
+            </div>
+            {% endfor %}
+        {% elif query %}
+            <p>По запросу "{{ query }}" ничего не найдено</p>
+        {% endif %}
+    </div>
+    
+    <a href="{{ url_for('index') }}">← На главную страницу</a>
+</body>
+</html>
