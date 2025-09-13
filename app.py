@@ -186,8 +186,8 @@ def get_text_context(text, query, context_chars=50):
     start_pos = sentence_start
     end_pos = sentence_end
     
-    prefix = '... ' if start_pos > 0 else ''
-    suffix = ' ...' if end_pos < len(text) else ''
+    prefix = '...' if start_pos > 0 else ''
+    suffix = '...' if end_pos < len(text) else ''
     
     context = text[start_pos:end_pos].strip()
     
