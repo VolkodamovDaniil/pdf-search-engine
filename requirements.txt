@@ -1,0 +1,9 @@
+Flask==2.3.3
+Werkzeug==2.3.7
+SQLAlchemy==2.0.23
+PyPDF2==3.0.1
+python-magic==0.4.27
+langdetect==1.0.9
+tabula-py==2.8.0
+pandas==2.0.3
+PyMuPDF==1.23.8
