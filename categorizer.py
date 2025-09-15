@@ -20,7 +20,7 @@ RU_KEYWORD_CATEGORIES = {
 
 def categorize_document(text):
     if not text:
-        return 'unknown'
+        return 'unknown', 0
     
     text_lower = text.lower()
     scores = {}

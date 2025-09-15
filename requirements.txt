@@ -7,3 +7,4 @@ langdetect==1.0.9
 tabula-py==2.8.0
 pandas==2.0.3
 PyMuPDF==1.23.8
+pytest==8.4.2
