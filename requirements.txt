@@ -5,6 +5,6 @@ PyPDF2==3.0.1
 python-magic==0.4.27
 langdetect==1.0.9
 tabula-py==2.8.0
-pandas==2.0.3
+pandas==2.2.3
 PyMuPDF==1.23.8
 pytest==8.4.2
